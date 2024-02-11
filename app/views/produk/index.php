@@ -3,9 +3,15 @@
         <div class="card-header">
             <h3 class="card-title font-weight-bold text-xl"><?= $data['judul'] ?></h3>
             <div class="d-flex justify-content-end mt-1">
-                <a href="<?= APP_URL;?>/produk/create" class="btn btn-primary">
-                    <i class='fa fa-plus'></i> Tambah Data
-                </a>
+                <?php
+                if ($_SESSION['user']['role'] === 'admin') :
+                ?>
+                    <a href="<?= APP_URL; ?>/produk/create" class="btn btn-primary">
+                        <i class='fa fa-plus'></i> Tambah Data
+                    </a>
+                <?php
+                endif;
+                ?>
             </div>
         </div>
         <div class="card-body">
@@ -17,6 +23,14 @@
                         <th>Nama Produk</th>
                         <th>Harga</th>
                         <th>Stok</th>
+                        <?php
+                        if ($_SESSION['user']['role'] === 'admin') :
+                        ?>
+                            <th>Action</th>
+                        <?php
+                        endif;
+                        ?>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +44,13 @@
                             <td><?= $produk['nama_produk']; ?></td>
                             <td>RP <?= number_format((float)$produk['harga'], 2, ',', '.'); ?></td>
                             <td><?= $produk['stok']; ?></td>
+                            <?php
+                            if ($_SESSION['user']['role'] === 'admin') :
+                            ?>
+                                <td> <a class="btn btn-info" href="<?= APP_URL; ?>/produk/edit/<?= $produk['id_produk']; ?>">Edit</a></td>
+                            <?php
+                            endif;
+                            ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

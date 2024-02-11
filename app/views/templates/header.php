@@ -46,7 +46,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars">
-                            Hello, Admin
+                            Hello, <?= $_SESSION['user']['nama']; ?>
                         </i>
                     </a>
                 </li>
@@ -60,11 +60,7 @@
                             <i class="far fa-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-key mr-2"></i> Ganti Password
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">
+                            <a href="<?= APP_URL; ?>/authentication/logout" class="dropdown-item dropdown-footer">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
@@ -83,7 +79,7 @@
                         <img src="<?= APP_URL; ?>/dist/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Admin</a>
+                        <a href="#" class="d-block"><?= $_SESSION['user']['nama']; ?></a>
                     </div>
                 </div>
 
@@ -102,6 +98,43 @@
                                 <p>Produk</p>
                             </a>
                         </li>
+                        <?php
+                        if ($_SESSION['user']['role'] === 'admin') :
+                        ?>
+                            <li class="nav-item">
+                            <a href="<?= APP_URL; ?>/pegawai" class="nav-link">
+                                <i class='fas fa-chevron-circle-right'></i>
+                                <p>Pegawai</p>
+                            </a>
+                        </li>
+                        <?php
+                        endif;
+                        ?>
+                         <?php
+                        if ($_SESSION['user']['role'] === 'pegawai') :
+                        ?>
+                            <li class="nav-item">
+                            <a href="<?= APP_URL; ?>/pelanggan" class="nav-link">
+                                <i class='fas fa-chevron-circle-right'></i>
+                                <p>Pelanggan</p>
+                            </a>
+                        </li>
+                        <?php
+                        endif;
+                        ?>
+                         <?php
+                        if ($_SESSION['user']['role'] === 'pegawai') :
+                        ?>
+                            <li class="nav-item">
+                            <a href="<?= APP_URL; ?>/transaksi" class="nav-link">
+                                <i class='fas fa-chevron-circle-right'></i>
+                                <p>Transaksi</p>
+                            </a>
+                        </li>
+                        <?php
+                        endif;
+                        ?>
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

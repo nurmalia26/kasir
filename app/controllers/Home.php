@@ -2,6 +2,12 @@
 
 class Home extends Controller
 {
+    public function __construct()
+    {
+        $this->checkAuthentication();
+    }
+
+
     public function index($judul = "HOME")
     {
         $data['judul'] = 'kasir';
