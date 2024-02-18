@@ -25,7 +25,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -33,12 +33,13 @@
                     </div>
                 </div>
             </div>
-            <table id="datatable" class="table table-bordered table-striped">
+            <table id="datatableTransaksi" class="table table-bordered table-striped">
                 <thead>
                     <tr align="center" class="alert-dark">
                         <th>No.</th>
                         <th>Id</th>
                         <th>Pelanggan</th>
+                        <th>Pegawai</th>
                         <th>Tanggal</th>
                         <th>Total Harga</th>
                         <th>Detail</th>
@@ -52,15 +53,23 @@
                         <tr align="center">
                             <td><?= $no++; ?></td>
                             <td><?= $transaksi['id_transaksi']; ?></td>
-                            <td><?= $transaksi['id_pelanggan']; ?></td>
+                            <td><?= $transaksi['id_pelanggan']; ?> - <?= $transaksi['nama_pelanggan']; ?></td>
+                            <td><?= $transaksi['id_user']; ?> - <?= $transaksi['nama_user']; ?></td>
                             <td><?= $transaksi['tanggal']; ?></td>
-                            <td><?= $transaksi['total_harga']; ?></td>
+                            <td> Rp <?= number_format((float) $transaksi['total_harga'], 2, ',', '.'); ?></td>
                             <td>
                                 <a href="#" class="btn btn-primary detailProdukTrigger" data-id="<?= $transaksi['id_transaksi']; ?>" data-toggle="modal" data-target="#detailProdukModal">Detail</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+                <tfoot>
+                    <tr align="center">
+                        <th colspan="5">Subtotal</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

@@ -19,7 +19,7 @@ class Produk extends Controller
 
     public function create()
     {
-        $this->checkAuthorizationAdmin();
+        // $this->checkAuthorizationAdmin();
         $data['judul'] = 'Produk';
         $this->view('templates/header');
         $this->view('produk/create', $data);
@@ -28,7 +28,7 @@ class Produk extends Controller
 
     public function save()
     {
-        $this->checkAuthorizationAdmin();
+        // $this->checkAuthorizationAdmin();
         $cekIdProduk = $this->model('ProdukModel')->cekIdProduk($_POST['id_produk']);
         if (empty(trim($_POST['id_produk']))) {
             Flasher::setFlash('error', 'Data gagal disimpan', 'id produk wajib diisi');
@@ -98,7 +98,7 @@ class Produk extends Controller
             header("Location: " . APP_URL . '/produk/edit/' . $id);
             exit;
         }
-        if (empty(trim($_POST['stok']))) {
+        if ($_POST['stok'] < 0 ) {
             Flasher::setFlash('error', 'Data gagal diperbarui', 'stok wajib diisi');
             header("Location: " . APP_URL . '/produk/edit/' . $id);
             exit;

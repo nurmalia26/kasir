@@ -54,4 +54,11 @@ class ProdukModel
         $this->db->execute();
         return $this->db->rowCountAffected();
     }
+    public function getAllReadyProduk()
+    {
+        $this->db->query("SELECT * FROM $this->table WHERE stok > 0");
+        return $this->db->get();
+    }
+
+
 }

@@ -3,15 +3,11 @@
         <div class="card-header">
             <h3 class="card-title font-weight-bold text-xl"><?= $data['judul'] ?></h3>
             <div class="d-flex justify-content-end mt-1">
-                <?php
-                if ($_SESSION['user']['role'] === 'admin') :
-                ?>
+               
                     <a href="<?= APP_URL; ?>/produk/create" class="btn btn-primary">
                         <i class='fa fa-plus'></i> Tambah Data
                     </a>
-                <?php
-                endif;
-                ?>
+              
             </div>
         </div>
         <div class="card-body">
@@ -44,6 +40,7 @@
                             <td><?= $produk['nama_produk']; ?></td>
                             <td>RP <?= number_format((float)$produk['harga'], 2, ',', '.'); ?></td>
                             <td><?= $produk['stok']; ?></td>
+                           
                             <?php
                             if ($_SESSION['user']['role'] === 'admin') :
                             ?>
