@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= APP_NAME; ?></title>
     <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="<?= APP_URL; ?>/img/icon.png">
+    <link rel="icon" type="image/x-icon" href="<?= APP_URL; ?>/img/foto_produk/bangun_jaya.png">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -35,10 +35,16 @@
     <link rel="stylesheet" href="<?= APP_URL; ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= APP_URL; ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= APP_URL; ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="<?= APP_URL; ?>/css/style.css">
+    <link rel="stylesheet" href="<?= APP_URL; ?>/css/style2.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+
+
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -46,7 +52,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars">
-                            Hello, <?= $_SESSION['user']['nama']; ?>
+                            Hallo, <?= $_SESSION['user']['nama']; ?>
                         </i>
                     </a>
                 </li>
@@ -67,74 +73,73 @@
                     </li>
                 </ul>
             </ul>
-
         </nav>
         <!-- /.navbar -->
+        
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="#" class="brand-link">
+                <img src="<?= APP_URL; ?>/img/foto_produk/1.png" alt="AdminLTE Logo" class="brand-image img-square elevation-5" >
+                <span class="brand-text font-weight-light">Bangun Jaya</span>
+            </a>
             <!-- Sidebar -->
             <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <!-- <div class="image">
-                        <img src="<?= APP_URL; ?>/dist/img/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div> -->
+                <div class="user-panel mt-3 pb-2 mb-2 d-flex">
                     <div class="info">
                         <a href="#" class="d-block"><?= $_SESSION['user']['nama']; ?></a>
                     </div>
                 </div>
+                
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
                         <li class="nav-item">
                             <a href="<?= APP_URL; ?>" class="nav-link">
                                 <i class='fas fa-chevron-circle-right'></i>
-                                <p>Dashboard</p>
+                                <p>Beranda</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="<?= APP_URL; ?>/produk" class="nav-link">
                                 <i class='fas fa-chevron-circle-right'></i>
-                                <p>Produk</p>
+                                <p >Produk</p>
                             </a>
                         </li>
                         <?php
                         if ($_SESSION['user']['role'] === 'admin') :
                         ?>
                             <li class="nav-item">
-                            <a href="<?= APP_URL; ?>/pegawai" class="nav-link">
-                                <i class='fas fa-chevron-circle-right'></i>
-                                <p>Pegawai</p>
-                            </a>
-                        </li>
+                                <a href="<?= APP_URL; ?>/pegawai" class="nav-link">
+                                    <i class='fas fa-chevron-circle-right'></i>
+                                    <p>Pegawai</p>
+                                </a>
+                            </li>
                         <?php
                         endif;
                         ?>
-                         <?php
+                        <?php
                         if ($_SESSION['user']['role'] === 'pegawai') :
                         ?>
                             <li class="nav-item">
-                            <a href="<?= APP_URL; ?>/pelanggan" class="nav-link">
-                                <i class='fas fa-chevron-circle-right'></i>
-                                <p>Pelanggan</p>
-                            </a>
-                        </li>
+                                <a href="<?= APP_URL; ?>/pelanggan" class="nav-link">
+                                    <i class='fas fa-chevron-circle-right'></i>
+                                    <p>Pelanggan</p>
+                                </a>
+                            </li>
                         <?php
                         endif;
                         ?>
-                         <?php
-                        if ($_SESSION['user']['role'] === 'pegawai') :
-                        ?>
+                      
                             <li class="nav-item">
-                            <a href="<?= APP_URL; ?>/transaksi" class="nav-link">
-                                <i class='fas fa-chevron-circle-right'></i>
-                                <p>Transaksi</p>
-                            </a>
-                        </li>
-                        <?php
-                        endif;
-                        ?>
-                        
+                                <a href="<?= APP_URL; ?>/transaksi" class="nav-link">
+                                    <i class='fas fa-chevron-circle-right'></i>
+                                    <p>Transaksi</p>
+                                </a>
+                            </li>
+                       
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

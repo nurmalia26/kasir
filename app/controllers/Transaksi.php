@@ -6,7 +6,7 @@ class Transaksi extends Controller
     public function __construct()
     {
         $this->checkAuthentication();
-        $this->checkAuthorizationPegawai();
+        // $this->checkAuthorizationPegawai();
     }
 
     public function index()
@@ -50,6 +50,19 @@ class Transaksi extends Controller
             exit;
         } else {
             Flasher::setFlash('error', 'Transaksi Gagal', 'Transaksi Gagal disimpan');
+            header('Location: ' . APP_URL . '/transaksi');
+            exit;
+        }
+    }
+
+    public function statusPaid($idTransaksi)
+    {
+        if ($this->model('TransaksiModel')->updateStatusPaid($idTransaksi) > 0) {
+            Flasher::setFlash('success', 'Pembayaran Berhasil', 'Pembayaran Berhasil disimpan');
+            header('Location: ' . APP_URL . '/transaksi');
+            exit;
+        } else {
+            Flasher::setFlash('error', 'Pembayaran Gagal', 'Pembayaran Gagal disimpan');
             header('Location: ' . APP_URL . '/transaksi');
             exit;
         }

@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.container-nota {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+.receipt-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.receipt-table th, .receipt-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+.receipt-total {
+    text-align: right;
+    font-weight: bold;
+}

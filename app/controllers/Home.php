@@ -8,11 +8,13 @@ class Home extends Controller
     }
 
 
-    public function index($judul = "HOME")
+    public function index()
     {
-        $data['judul'] = 'kasir';
+        $data['judul'] = 'Bangun jaya';
         $this->view('templates/header');
         $this->view('home/index', $data);
         $this->view('templates/footer');
     }
+
+    
 }

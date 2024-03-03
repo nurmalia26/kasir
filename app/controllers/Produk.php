@@ -28,7 +28,6 @@ class Produk extends Controller
 
     public function save()
     {
-        // $this->checkAuthorizationAdmin();
         $cekIdProduk = $this->model('ProdukModel')->cekIdProduk($_POST['id_produk']);
         if (empty(trim($_POST['id_produk']))) {
             Flasher::setFlash('error', 'Data gagal disimpan', 'id produk wajib diisi');
@@ -37,6 +36,11 @@ class Produk extends Controller
         }
         if (empty(trim($_POST['nama_produk']))) {
             Flasher::setFlash('error', 'Data gagal disimpan', 'nama produk wajib diisi');
+            header("Location: " . APP_URL . '/produk/create');
+            exit;
+        }
+        if (!isset($_FILES["foto_produk"]) && $_FILES['foto_produk']['error'] != UPLOAD_ERR_OK) {
+            Flasher::setFlash('error', 'Upload Foto Gagal', 'foto wajib diisi');
             header("Location: " . APP_URL . '/produk/create');
             exit;
         }
@@ -56,8 +60,11 @@ class Produk extends Controller
             exit;
         }
 
-        $rowAffacted = $this->model("ProdukModel")->insert($_POST);
+        $extension = pathinfo($_FILES['foto_produk']['name'], PATHINFO_EXTENSION);
+        $namaFile = 'img/foto_produk/' .  str_replace(" ", "_", strtolower($_POST['nama_produk'])) . '.' . $extension;
+        $rowAffacted = $this->model("ProdukModel")->insert($_POST, $namaFile);
         if ($rowAffacted > 0) {
+            move_uploaded_file($_FILES['foto_produk']['tmp_name'], $namaFile);
             Flasher::setFlash('success', 'Data Berhasil disimpan', 'Produk Berhasil ditambahkan');
             header("Location: " . APP_URL . "/produk");
             exit;
@@ -70,8 +77,8 @@ class Produk extends Controller
 
     public function edit($id)
     {
-        $this->checkAuthorizationAdmin();
-        $data['judul'] = 'edit';
+        // $this->checkAuthorizationAdmin();
+        $data['judul'] = 'Edit';
         $data['produk'] = $this->model("ProdukModel")->getProdukById($id);
         if (!$data['produk']) {
             $this->view('templates/header');
@@ -87,7 +94,7 @@ class Produk extends Controller
     public function update($id)
     {
 
-        $this->checkAuthorizationAdmin();
+        // $this->checkAuthorizationAdmin();
         if (empty(trim($_POST['nama_produk']))) {
             Flasher::setFlash('error', 'Data gagal diperbarui', 'nama produk wajib diisi');
             header("Location: " . APP_URL . '/produk/edit/' . $id);
@@ -98,7 +105,7 @@ class Produk extends Controller
             header("Location: " . APP_URL . '/produk/edit/' . $id);
             exit;
         }
-        if ($_POST['stok'] < 0 ) {
+        if ($_POST['stok'] < 0) {
             Flasher::setFlash('error', 'Data gagal diperbarui', 'stok wajib diisi');
             header("Location: " . APP_URL . '/produk/edit/' . $id);
             exit;

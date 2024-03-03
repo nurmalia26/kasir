@@ -43,4 +43,14 @@ class Controller
             exit;
         }
     }
+
+    public function checkAuthorizationUser()
+    {
+        if ($_SESSION['user']['role'] !== 'user') {
+            $this->view('templates/header');
+            $this->view('templates/404');
+            $this->view('templates/footer');
+            exit;
+        }
+    }
 }

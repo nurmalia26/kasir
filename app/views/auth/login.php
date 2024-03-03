@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="<?= APP_URL; ?>/img/foto_produk/bangun_jaya.png">
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -16,6 +18,8 @@
     <link rel="stylesheet" href="<?= APP_URL ?>/dist/css/adminlte.min.css">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?= APP_URL; ?>/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- <link rel="stylesheet" href="<?= APP_URL; ?>/css/style2.css"> -->
+
 </head>
 
 <body class="hold-transition login-page">
@@ -23,7 +27,8 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <h1><b><?= APP_NAME; ?></b></h1>
+            <img src="<?= APP_URL; ?>/img/foto_produk/bangun_jaya.png" alt="Logo" class="logo" style="max-width: 200px; max-height: 200px;">
+                <!-- <h1><b><?= APP_NAME; ?></b></h1> -->
             </div>
             <div class="card-body">
                 <form action="<?= APP_URL; ?>/authentication/login" method="post">
@@ -43,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                 </form>
             </div>
             <!-- /.card-body -->

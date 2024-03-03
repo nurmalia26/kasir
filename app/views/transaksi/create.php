@@ -39,6 +39,16 @@
             </div>
             <button id="btnTambahProduk" class="btn btn-primary" type="button" disabled>Tambah Produk</button>
             <div id="detailProduk"></div>
+            <div class="form-group mt-3">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Bayar</label>
+                    <input type="number" class="form-control col" min="1" id="bayar" name="bayar">
+                </div>
+            </div>
+            <div class="row d-none">
+                <label class="col-sm-2 col-form-label">Kembalian</label>
+                <label id="totalKembalian" class="col col-form-label"></label>
+            </div>
         </div>
         <div class="card-footer">
             <div class="d-flex justify-content-between">

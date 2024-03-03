@@ -1,0 +1,15 @@
+/* CSS untuk mengubah warna sidebar */
+.main-sidebar {
+    background-color: #607274; /* Ganti dengan warna yang diinginkan */
+}
+
+/* CSS untuk mengubah warna teks di atas sidebar */
+.main-sidebar .brand-text {
+    color: #fff; /* Ganti dengan warna yang diinginkan */
+}
+.nav-link p {
+    color: #fff; /* Ganti dengan warna yang diinginkan */
+}
+.navbar-nav .nav-link {
+    color: #fff; /* Ganti dengan warna yang diinginkan */
+}

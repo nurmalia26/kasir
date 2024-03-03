@@ -3,7 +3,7 @@
         <h3 class="card-title"><?= $data['judul'] ?></h3>
     </div>
 
-    <form action="<?= APP_URL; ?>/produk/save" method="post" id="form_produk">
+    <form action="<?= APP_URL; ?>/produk/save" method="post" id="form_produk" enctype="multipart/form-data">
         <div class="card-body">
         <div class="form-group">
                 <div class="row">
@@ -18,6 +18,14 @@
                     <label for="nama_produk" class="col-sm-2 col-form-label">Nama Produk</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="nama_produk" name="nama_produk" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="foto_produk" class="col-sm-2 col-form-label">Foto Produk</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" id="foto_produk" name="foto_produk" />
                     </div>
                 </div>
             </div>

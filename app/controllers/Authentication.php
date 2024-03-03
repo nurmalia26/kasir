@@ -5,7 +5,7 @@ class Authentication extends Controller
 
     public function index()
     {
-        if (isset($_SESSION['user'])&& $_SESSION['user']) {
+        if (isset($_SESSION['user']) && $_SESSION['user']) {
             header("Location: " . APP_URL);
             exit;
         }
@@ -32,7 +32,7 @@ class Authentication extends Controller
         }
         if ($user) {
             $_SESSION['user'] = $user;
-            Flasher::setFlash('success', 'Login Berhasil', '');
+            Flasher::setFlash('success', 'Login Berhasil', "Hi, " . $_SESSION['user']['nama']);
             header("Location: " . APP_URL);
             exit;
         } else {

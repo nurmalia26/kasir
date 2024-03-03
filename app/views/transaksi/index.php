@@ -6,6 +6,7 @@
                 <?php
                 if ($_SESSION['user']['role'] === 'pegawai') :
                 ?>
+
                     <a href="<?= APP_URL; ?>/transaksi/create" class="btn btn-primary">
                         <i class='fa fa-plus'></i> Tambah Data
                     </a>
@@ -16,7 +17,7 @@
         </div>
         <div class="card-body">
             <div class="modal fade" id="detailProdukModal" tabindex="-1" aria-labelledby="detailProdukModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="detailProdukModalLabel">Detail Produk</h5>
@@ -59,6 +60,9 @@
                             <td> Rp <?= number_format((float) $transaksi['total_harga'], 2, ',', '.'); ?></td>
                             <td>
                                 <a href="#" class="btn btn-primary detailProdukTrigger" data-id="<?= $transaksi['id_transaksi']; ?>" data-toggle="modal" data-target="#detailProdukModal">Detail</a>
+                                <?php if ($transaksi['status'] === 'order') : ?>
+                                    <a href="<?= APP_URL; ?>/transaksi/statuspaid/<?= $transaksi['id_transaksi']; ?>" class="btn btn-success">Bayar</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

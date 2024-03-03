@@ -15,6 +15,8 @@ const rupiahIndonesia = new Intl.NumberFormat("id-ID", {
   currency: "IDR",
 });
 
+//SCRIPT
+
 let detailProduk = [];
 
 function addDetailProduk() {
@@ -31,6 +33,24 @@ function addDetailProduk() {
     $("#btnTambahProduk").removeAttr("disabled");
   }
 }
+
+function tampilKembali() {
+  const totalHarga = Number($("#total_harga").val());
+  const totalBayar = Number($("#bayar").val());
+  console.log("totalHarga", totalHarga);
+  console.log("totalBayar", totalBayar);
+  if (totalHarga > 0 && totalBayar > 0 && totalBayar >= totalHarga) {
+    const totalkembalian = rupiahIndonesia.format(totalBayar - totalHarga);
+    console.log("totalkembalian", totalkembalian);
+    const htmlKembalian = `: <b>${totalkembalian}</b>`;
+    $("#totalKembalian").parent().removeClass("d-none");
+    $("#totalKembalian").html(htmlKembalian);
+  }
+}
+
+$("#bayar").on("blur", function () {
+  tampilKembali();
+});
 
 $("#id_produk").on("change", function () {
   let selectedOption = $("option:selected", this);
@@ -63,6 +83,7 @@ $(function () {
     $("#qty").val("");
     if (detailProduk.length === 0) {
       $("#total_harga").val(subTotal);
+
       let tblDetail = ` <table id="tblDetailProduk" class="table table-bordered table-striped mt-2">
                           <thead>
                               <tr align="center" class="alert-dark">
@@ -81,7 +102,9 @@ $(function () {
                                   <td>${idProduk}</td>
                                   <td>${namaProduk}</td>
                                   <td>${qtyValue}</td>
-                                  <td>${rupiahIndonesia.format(hargaProduk)}</td>
+                                  <td>${rupiahIndonesia.format(
+                                    hargaProduk
+                                  )}</td>
                                   <td>${rupiahIndonesia.format(subTotal)}</td>
                                   <td><a href="#" data-id="${idProduk}" data-subtotal="${subTotal}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                               </tr>
@@ -89,12 +112,15 @@ $(function () {
                           <tfoot>
                             <tr align="center" id="sumSubTotal">
                               <th colspan="4"> Total Harga</th>
-                              <th>${rupiahIndonesia.format(subTotal)}</th>
+                              <th>${rupiahIndonesia.format(subTotal)}
+                  
+                              </th>
                               <th></th>
                             </tr>
                           </tfoot>
                       </table>`;
       $("#detailProduk").append(tblDetail);
+      $("#bayar").attr("min", subTotal);
     } else {
       const sumSubTotal =
         detailProduk
@@ -122,6 +148,7 @@ $(function () {
       $("#sumSubTotal").remove();
       $("#detailProduk tbody").append(tbodyTblDetail);
       $("#detailProduk tfoot").append(tfootTblDetail);
+      $("#bayar").attr("min", sumSubTotal);
     }
     detailProduk.push({
       id_produk: idProduk,
@@ -146,7 +173,9 @@ $(function () {
     } else {
       totalHarga = Number(totalHarga) - Number(subTotal);
       $("#total_harga").val(totalHarga);
-      $("#sumSubTotal th:nth-child(2)").html(rupiahIndonesia.format(totalHarga));
+      $("#sumSubTotal th:nth-child(2)").html(
+        rupiahIndonesia.format(totalHarga)
+      );
     }
   });
 
@@ -188,45 +217,182 @@ $(function () {
     .buttons()
     .container()
     .appendTo("#datatableTransaksi_wrapper .col-md-6:eq(0)");
+  //foto produk
+  $(document).on("click", ".fotoProdukTrigger", function () {
+    const foto = $(this).data("foto");
+    const imgProduk = `<img src="${APP_URL}/${foto}" class="product-image" alt="Product Image"/>`;
+    $("#fotoProduk .modal-body").html(imgProduk);
+  });
 
-  $(".detailProdukTrigger").on("click", function () {
+  $('[data-dismiss="modal"]').on("click", function () {
+    $(".modal-body").html("");
+  });
+
+  $(document).on("click", ".detailProdukTrigger", function () {
     const id = $(this).data("id");
     $.ajax({
       url: APP_URL + "/transaksi/getDetailByIdTransaksi/" + id,
       type: "get",
       dataType: "json",
       success: (data) => {
-        let totalHarga = 0
-        let tabelDetail = `<table id="datatable" class="table table-bordered table-striped">
+        console.log(data);
+        let totalHarga = 0;
+        const totalBayar = Number(data[0].bayar);
+        let tabelDetail = `<table id="datatableDetailProduk" class="table table-bordered table-striped">
         <thead>
             <tr align="center" class="alert-dark">
                 <th>No.</th>
                 <th>id produk</th>
+                <th>Nama Produk</th>
+                <th>Harga Satuan</th>
                 <th>Jumlah produk</th>
                 <th>Sub Total</th>
             </tr>
         </thead>
         <tbody>`;
-        
+
         for (let i = 0; i < data.length; i++) {
           totalHarga += Number(data[i].sub_total);
           const element = data[i];
           tabelDetail += `<tr align="center">
             <td>${i + 1}</td>
             <td>${data[i].id_produk}</td>
+            <td>${data[i].nama_produk}</td>
+            <td>${rupiahIndonesia.format(data[i].harga)}</td>
             <td>${data[i].jumlah_produk}</td>
             <td>${rupiahIndonesia.format(data[i].sub_total)}</td>
         </tr>`;
         }
-        tabelDetail += ` </tbody>
-        <tfoot>
-        <tr>
-        <th colspan="3">Total Harga</th>
-        <th>${rupiahIndonesia.format(totalHarga)}</th>
-        </tr></tfoot>
-        
-        </table>`;
+        const totalkembalian = Number(totalBayar - totalHarga);
+
+        tabelDetail += `</tbody>
+                        <tfoot>
+                          <tr align="center">
+                            <th colspan="5">Total Harga</th>
+                            <th>${rupiahIndonesia.format(totalHarga)}</th>
+                          </tr>
+                          <tr align="center">
+                            <th colspan="5">Total Bayar</th>
+                            <th>${rupiahIndonesia.format(totalBayar)}</th>
+                          </tr>
+                          <tr align="center">
+                            <th colspan="5">Kembalian</th>
+                            <th>${rupiahIndonesia.format(totalkembalian)}</th>
+                          </tr>
+                        </tfoot>
+                    </table>`;
         $("#detailProdukModal .modal-body").html(tabelDetail);
+        $('[data-dismiss="modal"]').on("click", function () {
+          $(".modal-body").html("");
+        });
+
+        $("#datatableDetailProduk")
+          .DataTable({
+            responsive: true,
+            lengthChange: true,
+            autoWidth: false,
+            buttons: [
+              {
+                extend: "pdfHtml5",
+                footer: true,
+                customize: function (doc) {
+                  doc.content.splice(
+                    1,
+                    0,
+                    {
+                      margin: [0, 0, 0, 12], // adjust margins as needed
+                      alignment: "left",
+                      columns: [
+                        { text: "Id Transaksi", width: 100 },
+                        { text: ": " + data[0].id_transaksi },
+                      ],
+                    },
+                    {
+                      margin: [0, 0, 0, 12], // adjust margins as needed
+                      alignment: "left",
+                      columns: [
+                        { text: "Tanggal", width: 100 },
+                        { text: ": " + data[0].tanggal },
+                      ],
+                    },
+                    {
+                      margin: [0, 0, 0, 12], // adjust margins as needed
+                      alignment: "left",
+                      columns: [
+                        { text: "Nama Pelanggan", width: 100 },
+                        { text: ": " + data[0].nama_pelanggan },
+                      ],
+                    },
+                    {
+                      margin: [0, 0, 0, 12], // adjust margins as needed
+                      alignment: "left",
+                      columns: [
+                        { text: "Nama Kasir", width: 100 },
+                        { text: ": " + data[0].nama_kasir },
+                      ],
+                    }
+                  );
+                },
+              },
+              {
+                extend: "print",
+                customize: function (win) {
+                  $(win.document.body)
+                    .find("table")
+                    .before(
+                      `<div class="row">
+                          <label for="nama" class="col-sm-2 col-form-label">Id Transaksi</label>
+                          <label for="nama" class="col-sm-10 col-form-label">: ${
+                            data[0].id_transaksi == null
+                              ? "-"
+                              : data[0].id_transaksi
+                          }</label>
+                      </div>
+                      <div class="row">
+                          <label for="nama" class="col-sm-2 col-form-label">Tanggal</label>
+                          <label for="nama" class="col-sm-10 col-form-label">: ${
+                            data[0].tanggal == null ? "-" : data[0].tanggal
+                          }</label>
+                      </div>
+                      <div class="row">
+                          <label for="nama" class="col-sm-2 col-form-label">Nama Pelanggan</label>
+                          <label for="nama" class="col-sm-10 col-form-label">: ${
+                            data[0].nama_pelanggan == null
+                              ? "-"
+                              : data[0].nama_pelanggan
+                          }</label>
+                      </div>
+                      <div class="row">
+                          <label for="nama" class="col-sm-2 col-form-label">Nama Kasir</label>
+                          <label for="nama" class="col-sm-10 col-form-label">: ${
+                            data[0].nama_kasir == null
+                              ? "-"
+                              : data[0].nama_kasir
+                          }</label>
+                      </div>`
+                    ).append(`<tfoot>
+                              <tr align="center">
+                                <th colspan="5">Total Harga</th>
+                                <th>${rupiahIndonesia.format(totalHarga)}</th>
+                              </tr>
+                              <tr align="center">
+                                <th colspan="5">Total Bayar</th>
+                                <th>${rupiahIndonesia.format(totalBayar)}</th>
+                              </tr>
+                              <tr align="center">
+                                <th colspan="5">Kembalian</th>
+                                <th>${rupiahIndonesia.format(
+                                  totalkembalian
+                                )}</th>
+                              </tr>
+                            </tfoot>`);
+                },
+              },
+            ],
+          })
+          .buttons()
+          .container()
+          .appendTo("#datatableDetailProduk_wrapper .col-md-6:eq(0)");
       },
     });
   });

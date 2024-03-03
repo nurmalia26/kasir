@@ -28,8 +28,8 @@ class Pegawai extends Controller
 
     public function save()
     {
-        $rowAffacted = $this->model("PegawaiModel")->insert($_POST);
         $cekUsername = $this->model('PegawaiModel')->cekUsername($_POST['username']);
+
         if (empty(trim($_POST['nama']))) {
             Flasher::setFlash('error', 'Pendaftaran pegawai gagal', 'Nama wajib diisi');
             header("Location: " . APP_URL . '/pegawai/create');
@@ -50,6 +50,7 @@ class Pegawai extends Controller
             header("Location: " . APP_URL . '/pegawai/create');
             exit;
         }
+        $rowAffacted = $this->model("PegawaiModel")->insert($_POST);
         if ($rowAffacted > 0) {
             Flasher::setFlash('success', 'Data Berhasil disimpan', 'Pegawai Berhasil ditambahkan');
             header("Location: " . APP_URL . "/pegawai");
