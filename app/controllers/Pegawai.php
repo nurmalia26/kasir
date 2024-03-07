@@ -3,19 +3,18 @@
 class Pegawai extends Controller
 {
 
-    public function __construct()
+    public function __construct()    
     {
-        $this->checkAuthentication();
-        $this->checkAuthorizationAdmin();
+        $this->checkAuthentication();  
+        $this->checkAuthorizationAdmin(); 
     }
 
     public function index()
     {
-        $data['pegawai'] = $this->model("PegawaiModel")->getAllPegawai();
+        $data['pegawai'] = $this->model("PegawaiModel")->getAllPegawai();// Mendapatkan data seluruh pegawai dari model PegawaiModel
         $data['judul'] = 'Pegawai';
         $this->view('templates/header');
         $this->view('pegawai/index', $data);
-        $this->view('templates/footer');
     }
 
     public function create()
@@ -25,11 +24,11 @@ class Pegawai extends Controller
         $this->view('pegawai/create', $data);
         $this->view('templates/footer');
     }
-
+    
     public function save()
-    {
+    {  
+        // Memeriksa apakah username yang diinput sudah ada di database
         $cekUsername = $this->model('PegawaiModel')->cekUsername($_POST['username']);
-
         if (empty(trim($_POST['nama']))) {
             Flasher::setFlash('error', 'Pendaftaran pegawai gagal', 'Nama wajib diisi');
             header("Location: " . APP_URL . '/pegawai/create');

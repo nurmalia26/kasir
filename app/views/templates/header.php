@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="<?= APP_URL; ?>/css/style.css">
     <link rel="stylesheet" href="<?= APP_URL; ?>/css/style2.css">
 
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -94,14 +95,24 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                        <li class="nav-item">
-                            <a href="<?= APP_URL; ?>" class="nav-link">
-                                <i class='fas fa-chevron-circle-right'></i>
-                                <p>Beranda</p>
-                            </a>
-                        </li>
-
+                    <li class="nav-item">
+                                <a href="<?= APP_URL; ?>/home" class="nav-link">
+                                <i class="fas fa-warehouse"></i>                    
+                                <p>Laporan</p>
+                                </a>
+                            </li>
+                            <?php
+                        if ($_SESSION['user']['role'] === 'admin') :
+                        ?>
+                            <li class="nav-item">
+                                <a href="<?= APP_URL; ?>/supplier" class="nav-link">
+                                    <i class='fas fa-chevron-circle-right'></i>
+                                    <p>Supplier</p>
+                                </a>
+                            </li>
+                        <?php
+                        endif;
+                        ?>
                         <li class="nav-item">
                             <a href="<?= APP_URL; ?>/produk" class="nav-link">
                                 <i class='fas fa-chevron-circle-right'></i>
@@ -139,7 +150,7 @@
                                     <p>Transaksi</p>
                                 </a>
                             </li>
-                       
+                           
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

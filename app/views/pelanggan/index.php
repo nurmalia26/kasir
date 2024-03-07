@@ -3,7 +3,7 @@
         <div class="card-header">
             <h3 class="card-title font-weight-bold text-xl"><?= $data['judul'] ?></h3>
             <div class="d-flex justify-content-end mt-1">
-                <a href="<?= APP_URL; ?>/pelanggan/create" class="btn btn-primary">
+                <a href="<?= APP_URL; ?>/supplier/create" class="btn btn-primary">
                     <i class='fa fa-plus'></i> Tambah Data
                 </a>
             </div>

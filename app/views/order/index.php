@@ -228,7 +228,6 @@
     <!-- Custom Javascript -->
     <script src="<?= APP_URL; ?>/js/order.js"></script>
     <?php Flasher::flash() ?>
-    <?php Flasher::swal() ?>
 
     <?php if (isset($_SESSION['transaction']) && $_SESSION['transaction']) : ?>
         <script>

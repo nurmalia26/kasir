@@ -2,6 +2,7 @@
 
 class Flasher
 {
+    // Method untuk menetapkan pesan flash dengan icon, judul, dan teks yang diberikan
     public static function setFlash($icon, $title, $text)
     {
         $_SESSION['flash'] = [
@@ -11,6 +12,7 @@ class Flasher
         ];
     }
 
+    // Method untuk menampilkan pesan flash jika ada dalam session
     public static function flash()
     {
         if (isset($_SESSION['flash'])) {
@@ -21,29 +23,9 @@ class Flasher
                 text: "' . $_SESSION['flash']['text'] . '"
             })
             </script>';
-            unset($_SESSION['flash']);
+            unset($_SESSION['flash']); // Menghapus pesan flash setelah ditampilkan
         }
     }
 
-    public static function setSwal($icon, $title, $text)
-    {
-        $_SESSION['swal'] = [
-            'icon' => $icon,
-            'title' => $title,
-            'text' => $text
-        ];
-    }
-    public static function swal()
-    {
-        if (isset($_SESSION['swal'])) {
-            echo '<script>
-            Swal.fire({
-                icon: "' . $_SESSION['swal']['icon'] . '",
-                title: "' . $_SESSION['swal']['title'] . '",
-                text: "' . $_SESSION['swal']['text'] . '"
-            })
-            </script>';
-            unset($_SESSION['swal']);
-        }
-    }
+    
 }

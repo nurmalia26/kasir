@@ -60,6 +60,7 @@
 
 <!-- Custom Javascript -->
 <script src="<?= APP_URL; ?>/js/script.js"></script>
+
 <?php Flasher::flash() ?>
 </body>
 

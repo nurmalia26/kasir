@@ -40,17 +40,23 @@
             <button id="btnTambahProduk" class="btn btn-primary" type="button" disabled>Tambah Produk</button>
             <div id="detailProduk"></div>
             <div class="form-group mt-3">
+            <div class="row">
+                    <label class="col-sm-3 col-form-label">alamat</label>
+                    <input type="text" class="form-control col"  id="alamat" name="alamat">
+                </div>
+            </div>
                 <div class="row">
-                    <label class="col-sm-2 col-form-label">Bayar</label>
-                    <input type="number" class="form-control col" min="1" id="bayar" name="bayar">
+                    <label class="col-sm-3 col-form-label">Bayar</label>
+                    <input type="number" class="form-control col" min="1" id="bayar" name="bayar" >
                 </div>
             </div>
             <div class="row d-none">
-                <label class="col-sm-2 col-form-label">Kembalian</label>
-                <label id="totalKembalian" class="col col-form-label"></label>
+                <label class="col-sm-3 col-form-label">Kembalian</label>
+                <label id="totalKembalian" class="col col col-form-label"></label>
             </div>
         </div>
         <div class="card-footer">
+            
             <div class="d-flex justify-content-between">
                 <div>
                     <a class="btn btn-info" href="<?= APP_URL; ?>/transaksi">Kembali</a>

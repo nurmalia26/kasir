@@ -3,10 +3,15 @@
         <div class="card-header">
             <h3 class="card-title font-weight-bold text-xl"><?= $data['judul'] ?></h3>
             <div class="d-flex justify-content-end mt-1">
-
+                      <?php
+                        if ($_SESSION['user']['role'] === 'admin') :
+                        ?>
                 <a href="<?= APP_URL; ?>/produk/create" class="btn btn-primary">
                     <i class='fa fa-plus'></i> Tambah Data
                 </a>
+                <?php
+                endif
+                ?>
 
             </div>
         </div>
@@ -34,15 +39,19 @@
                 <thead>
                     <tr align="center" class="alert-dark">
                         <th>No.</th>
-                        <th>Id</th>
+                        <th>Kode Produk</th>
                         <th>Nama Produk</th>
                         <!-- <th>Foto Produk</th> -->
                         <th>Harga</th>
                         <th>Stok</th>
-                        
+                        <?php
+                        if ($_SESSION['user']['role'] === 'admin') :
+                        ?>
                             <th>Action</th>
-                       
-
+                            <?php
+                           endif
+                           ?>
+                        <th>Supplier</th>   
                     </tr>
                 </thead>
                 <tbody>
@@ -55,15 +64,19 @@
                             <td><?= $produk['id_produk']; ?></td>
                             <td><?= $produk['nama_produk']; ?></td>
                             <!-- <td>
-                              
                                 <a href="#" class="btn btn-primary fotoProdukTrigger" data-foto="<?= $produk['foto_produk']; ?>" data-toggle="modal" data-target="#fotoProduk">Lihat gambar</a>
                             </td> -->
                             <td>RP <?= number_format((float)$produk['harga'], 2, ',', '.'); ?></td>
                             <td><?= $produk['stok']; ?></td>
 
-                          
+                       <?php
+                        if ($_SESSION['user']['role'] === 'admin') :
+                        ?>
                                 <td> <a class="btn btn-info" href="<?= APP_URL; ?>/produk/edit/<?= $produk['id_produk']; ?>">Edit</a></td>
-                           
+                           <?php
+                           endif
+                           ?>
+                        <td><?= $produk['nama_supplier']; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

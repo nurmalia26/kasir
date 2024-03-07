@@ -18,7 +18,7 @@
                 <div class="row">
                     <label for="harga" class="col-sm-2 col-form-label">Harga</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="harga" name="harga" value="<?= number_format($data['produk']['harga'], 0, '', ''); ?>" />
+                        <input type="text" class="form-control" id="harga" name="harga" value="Rp <?= number_format($data['produk']['harga'], 0, ',', '.'); ?>" onkeyup="formatRupiah(this)" />
                     </div>
                 </div>
             </div>

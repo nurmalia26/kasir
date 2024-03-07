@@ -18,7 +18,7 @@ class TransaksiModel
                     ON tt.id_pelanggan = tp.id_pelanggan 
                     JOIN tbl_user AS tu
                     ON tt.id_user = tu.id_user
-                    ORDER BY tt.id_transaksi");
+                    ORDER BY tt.id_transaksi DESC ");
         return $this->db->get();
     }
 
@@ -30,11 +30,12 @@ class TransaksiModel
 
     public function save($data)
     {
-        $this->db->query("INSERT INTO $this->table VALUES ('', :id_pelanggan, :id_user, CURDATE(), :total_harga, 'order', :bayar)");
+        $this->db->query("INSERT INTO $this->table VALUES ('', :id_pelanggan, :id_user, NOW(), :total_harga, 'paid', :bayar, :alamat)");
         $this->db->bind('id_pelanggan', $data['id_pelanggan']);
         $this->db->bind('id_user', $_SESSION['user']['id_user']);
         $this->db->bind('total_harga', $data['total_harga']);
         $this->db->bind('bayar', $data['bayar']);
+        $this->db->bind('alamat', $data['alamat']);
         $this->db->execute();
         if ($this->db->rowCountAffected() < 1) {
             return $this->db->rowCountAffected();
@@ -101,4 +102,13 @@ class TransaksiModel
         $this->db->execute();
         return $this->db->rowCountAffected();
     }
+
+
+    public function tampilTanggal($tanggalAwal, $tanggalAkhir){
+        $this->db->query("SELECT * FROM $this->table WHERE DATE(tanggal) BETWEEN :tanggal_awal AND :tanggal_akhir AND status = 'paid' ");
+        $this->db->bind('tanggal_awal', $tanggalAwal);
+        $this->db->bind('tanggal_akhir', $tanggalAkhir);
+        return $this->db->get();
+    }
+    
 }

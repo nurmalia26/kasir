@@ -40,6 +40,7 @@
                         <th>No.</th>
                         <th>Id</th>
                         <th>Pelanggan</th>
+                        <th>Alamat</th>
                         <th>Pegawai</th>
                         <th>Tanggal</th>
                         <th>Total Harga</th>
@@ -49,20 +50,23 @@
                 <tbody>
                     <?php
                     $no = 1;
+                    $subtotal = 0;
                     foreach ($data['transaksi'] as $transaksi) :
+                        $subtotal +=  $transaksi['total_harga'];
                     ?>
                         <tr align="center">
                             <td><?= $no++; ?></td>
                             <td><?= $transaksi['id_transaksi']; ?></td>
                             <td><?= $transaksi['id_pelanggan']; ?> - <?= $transaksi['nama_pelanggan']; ?></td>
+                            <td><?= $transaksi['alamat']; ?> </td>
                             <td><?= $transaksi['id_user']; ?> - <?= $transaksi['nama_user']; ?></td>
                             <td><?= $transaksi['tanggal']; ?></td>
+
                             <td> Rp <?= number_format((float) $transaksi['total_harga'], 2, ',', '.'); ?></td>
                             <td>
                                 <a href="#" class="btn btn-primary detailProdukTrigger" data-id="<?= $transaksi['id_transaksi']; ?>" data-toggle="modal" data-target="#detailProdukModal">Detail</a>
-                                <?php if ($transaksi['status'] === 'order') : ?>
-                                    <a href="<?= APP_URL; ?>/transaksi/statuspaid/<?= $transaksi['id_transaksi']; ?>" class="btn btn-success">Bayar</a>
-                                <?php endif; ?>
+                                <a href="<?= APP_URL; ?>/transaksi/cetak/<?= $transaksi['id_transaksi']; ?>" class="btn btn-success">Cetak</a>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -71,6 +75,7 @@
                     <tr align="center">
                         <th colspan="5">Subtotal</th>
                         <th></th>
+                        <th> Rp <?= number_format((float)$subtotal, 2, ',', '.'); ?></th>
                         <th></th>
                     </tr>
                 </tfoot>
